@@ -11,7 +11,7 @@ const Search = React.memo((props) => {
 
   // execute after onChange at Input (with the second argument)
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (enteredFilter === inputRef.current.value) {
         const query =
           enteredFilter.length === 0
@@ -35,6 +35,10 @@ const Search = React.memo((props) => {
           });
       }
     }, 500);
+    // cleanup function
+    return () => {
+      clearTimeout(timer);
+    };
   }, [enteredFilter, onLoadIngredients, inputRef]);
 
   return (
